@@ -20,26 +20,30 @@ jobs:
         uses: cloudbees-io/checkout@v1
 
       - id: build-container
+        
         uses: docker://gcr.io/kaniko-project/executor:debug
-        run: |
-          /kaniko/executor \
-            --context $CLOUDBEES_WORKSPACE \
-            --build-arg USER=cbp,TOKEN=${{ secrets.GH_SECURITY_PAT }} \
-            --dockerfile $CLOUDBEES_WORKSPACE/Dockerfile \
-            --tar-path $CLOUDBEES_WORKSPACE/container-image.tar \
-            --no-push
+        with:
+          args: |
+            /kaniko/executor \
+              --context $CLOUDBEES_WORKSPACE \
+              --build-arg USER=cbp,TOKEN=${{ secrets.GH_SECURITY_PAT }} \
+              --dockerfile $CLOUDBEES_WORKSPACE/Dockerfile \
+              --tar-path $CLOUDBEES_WORKSPACE/container-image.tar \
+              --no-push
 
-      - uses: cloudbees-io/register-build-artifact@v2
+      - 
+        
+        uses: cloudbees-io/register-build-artifact@v2
         with:
           name: qa-go-repo
           version: 0.1
           url: 020229604682.dkr.ecr.us-east-1.amazonaws.com/throwaway/actions/vulnerable-image:0.1
 
-      - name: Print output parameter artifact ID - test step name
+      - name: Print output parameter artifact ID test
         uses: docker://alpine:latest
-        shell: sh
-        run: |
-          echo "artifact ID for qa-go-repo:${{ cloudbees.version }} is: ${{ steps.register-artifact.outputs.artifact-id }}"
+        with:
+          args: |
+            echo "artifact ID for qa-go-repo:${{ steps.register-artifact.outputs.version }} is: ${{ steps.register-artifact.outputs.artifact-id }}"
 
       - id: upload-binary
         name: Upload binary using action
