@@ -31,7 +31,7 @@ jobs:
             --no-push
 
       - id: register-artifact
-        name: Register the artifact
+        
         uses: cloudbees-io/register-build-artifact@v2
         with:
           name: qa-go-repo
