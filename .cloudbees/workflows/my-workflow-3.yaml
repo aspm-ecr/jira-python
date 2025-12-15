@@ -29,8 +29,7 @@ jobs:
             --tar-path $CLOUDBEES_WORKSPACE/container-image.tar \
             --no-push
 
-      - 
-        uses: cloudbees-io/register-build-artifact@v2
+      - uses: cloudbees-io/register-build-artifact@v2
         with:
           name: qa-go-repo
           version: 0.1
