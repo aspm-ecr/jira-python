@@ -38,7 +38,7 @@ jobs:
           version: 0.1
           url: 020229604682.dkr.ecr.us-east-1.amazonaws.com/throwaway/actions/vulnerable-image:0.1
 
-      - name: Print output parameter artifact ID
+      - name: Print output parameter artifact ID test path 1
         uses: docker://alpine:latest
         shell: sh
         run: |
